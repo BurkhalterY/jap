@@ -1,0 +1,49 @@
+body {
+	background-color: floralwhite;
+}
+
+.form-error {
+	max-width: 600px;
+	margin: auto;
+}
+
+.form-custom {
+	max-width: 250px;
+	margin: auto;
+}
+
+.kanji-case {
+	min-width: 75px;
+	height: 75px;
+	font-size: 36px;
+	font-weight: bold;
+	margin: 2px;
+}
+
+.kanji-select {
+	min-width: 50px;
+	height: 50px;
+	font-size: 24px;
+	font-weight: bold;
+	margin: 2px;
+}
+
+#canvas {
+	cursor: crosshair;
+}
+
+#full-canvas {
+	height: 75px;
+	vertical-align: middle;
+}
+
+.full-inline {
+	max-width: 100%;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.big-kanji {
+	font-size: 200px;
+	vertical-align: middle;
+}
