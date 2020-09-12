@@ -6,8 +6,12 @@ class category_model extends MY_Model
 	protected $_table = 'categories';
 	protected $primary_key = 'id';
 	protected $protected_attributes = ['id'];
-	protected $has_many = ['series' => ['primary_key' => 'fk_category',
-										'model' => 'serie_model']];
+	protected $belongs_to = ['parent_category' => ['primary_key' => 'fk_parent_cat',
+												   'model' => 'category_model']];
+	protected $has_many = ['children_categories' => ['primary_key' => 'fk_parent_cat',
+													 'model' => 'category_model'],
+						   'words_categories' => ['primary_key' => 'fk_category',
+									   'model' => 'word_category_model']];
 
 	/**
 	 * Constructor

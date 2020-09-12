@@ -8,9 +8,7 @@ class user_model extends MY_Model
 	protected $protected_attributes = ['id'];
 	protected $belongs_to = ['user_type' => ['primary_key' => 'fk_user_type',
 											 'model' => 'user_type_model']];
-	protected $has_many = ['tracings' => ['primary_key' => 'fk_user',
-										  'model' => 'tracing_model'],
-						   'notes' => ['primary_key' => 'fk_user',
+	protected $has_many = ['notes' => ['primary_key' => 'fk_user',
 									   'model' => 'note_model']];
 
 	/**
