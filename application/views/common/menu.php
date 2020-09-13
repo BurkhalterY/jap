@@ -20,13 +20,9 @@ function is_active($pattern)
 					<a class="nav-link" href="<?=base_url('revision')?>"><?=$this->lang->line('title_revision')?></a>
 				</li>
 				<?php if($_SESSION['user_access'] >= ACCESS_LVL_ADMIN) { ?>
-					<!--<li class="nav-item <?=is_active('/\/admin/i') ? 'active' : ''?> dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?=$this->lang->line('title_admin_zone')?></a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="<?=base_url('admin/kanji')?>"><?=$this->lang->line('title_admin_kanji')?></a>
-							<a class="dropdown-item" href="<?=base_url('admin/serie')?>"><?=$this->lang->line('title_admin_serie')?></a>
-						</div>
-					</li>-->
+					<li class="nav-item <?=is_active('/\/administration/i') ? 'active' : ''?>">
+						<a class="nav-link" href="<?=base_url('administration')?>"><?=$this->lang->line('title_admin')?></a>
+					</li>
 				<?php } ?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?=base_url('user/logout')?>"><?=$this->lang->line('title_logout')?></a>

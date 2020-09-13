@@ -10,47 +10,152 @@ class Administration extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model(array('word_model', 'kana_model', 'kanji_model', 'vocabulary_model', 'kdlt_model', 'alphabet_model', 'category_model', 'word_category_model'));
+		$this->load->library('grocery_CRUD');
 	}
 
 	public function index() {
-		$this->display_view('administration/index');
+		redirect('administration/kana');
 	}
 
 	public function kana() {
-		$data['kana'] = $this->kana_model->get_all();
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('kana')
+			 ->set_subject('Kana')
+			 ->columns('romaji', 'kana')
+			 ->display_as('romaji', 'Rōmaji')
+			 ->display_as('kana', 'Kana')
+			 ->callback_after_insert(array($this, 'kana_after_insert'));
+
+		$crud->fields('romaji', 'kana');
+		$crud->required_fields('romaji', 'kana');
+
+		$data['crud'] = $crud->render();
 		$data['categories'] = $this->category_model->get_all();
-		$this->display_view('administration/kana', $data);
+		$this->display_view('administration/crud', $data);
+	}
+
+	function kana_after_insert($post_array, $primary_key) {
+		$id = $this->word_model->insert(['fk_word_type' => TYPE_KANA]);
+		$this->kana_model->update($primary_key, ['fk_word' => $id]);
 	}
 
 	public function kanji() {
-		$data['kanji'] = $this->kanji_model->get_all();
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('kanji')
+			 ->set_subject('Kanji')
+			 ->columns('kanji', 'onyomi', 'kunyomi', 'meaning', 'strokes', 'jouyou', 'jlpt')
+			 ->display_as('kanji', 'Kanji')
+			 ->display_as('onyomi', 'On\'yomi')
+			 ->display_as('kunyomi', 'Kun\'yomi')
+			 ->display_as('strokes', 'Nombre de traits')
+			 ->display_as('jouyou', 'Jōyō')
+			 ->display_as('jlpt', 'Niveau JLPT')
+			 ->callback_after_insert(array($this, 'kanji_after_insert'));
+
+		$crud->fields('kanji', 'onyomi', 'kunyomi', 'meaning', 'strokes', 'jouyou', 'jlpt');
+		$crud->required_fields('kanji', 'meaning');
+
+		$data['crud'] = $crud->render();
 		$data['categories'] = $this->category_model->get_all();
-		$this->display_view('administration/kanji', $data);
+		$this->display_view('administration/crud', $data);
+	}
+
+	function kanji_after_insert($post_array, $primary_key) {
+		$id = $this->word_model->insert(['fk_word_type' => TYPE_kanji]);
+		$this->kanji_model->update($primary_key, ['fk_word' => $id]);
 	}
 
 	public function vocabulary() {
-		$data['vocabulary'] = $this->vocabulary_model->get_all();
-		$this->display_view('administration/vocabulary', $data);
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('vocabulary')
+			 ->set_subject('Voc')
+			 ->columns('kana', 'kanji', 'translation', 'jlpt')
+			 ->display_as('kana', 'Kana')
+			 ->display_as('kanji', 'Kanji')
+			 ->display_as('translation', 'Français')
+			 ->display_as('jlpt', 'Niveau JLPT')
+			 ->callback_after_insert(array($this, 'vocabulary_after_insert'));
+
+		$crud->fields('kana', 'kanji', 'translation', 'jlpt');
+		$crud->required_fields('kana', 'translation');
+
+		$data['crud'] = $crud->render();
+		$data['categories'] = $this->category_model->get_all();
+		$this->display_view('administration/crud', $data);
+	}
+
+	function vocabulary_after_insert($post_array, $primary_key) {
+		$id = $this->word_model->insert(['fk_word_type' => TYPE_vocabulary]);
+		$this->vocabulary_model->update($primary_key, ['fk_word' => $id]);
 	}
 
 	public function kdlt() {
-		$data['kdlt'] = $this->kdlt_model->get_all();
-		$this->display_view('administration/kdlt', $data);
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('kdlt')
+			 ->set_subject('KDLT')
+			 ->columns('kdlt', 'chapter', 'kanji', 'keyword', 'story', 'note', 'component', 'strokes', 'jouyou', 'jlpt')
+			 ->display_as('kdlt', '#')
+			 ->display_as('chapter', 'Chapitre')
+			 ->display_as('kanji', 'Kanji')
+			 ->display_as('keyword', 'Mot clé')
+			 ->display_as('stroy', 'Histoire')
+			 ->display_as('note', 'Remarque')
+			 ->display_as('component', 'Composant')
+			 ->display_as('strokes', 'Nombre de traits')
+			 ->display_as('jouyou', 'Jōyō')
+			 ->display_as('jlpt', 'Niveau JLPT')
+			 ->callback_after_insert(array($this, 'kdlt_after_insert'));
+
+		$crud->fields('kdlt', 'chapter', 'kanji', 'keyword', 'story', 'note', 'component', 'strokes', 'jouyou', 'jlpt');
+		$crud->required_fields('kdlt', 'chapter', 'kanji', 'keyword', 'story');
+
+		$data['crud'] = $crud->render();
+		$data['categories'] = $this->category_model->get_all();
+		$this->display_view('administration/crud', $data);
+	}
+
+	function kdlt_after_insert($post_array, $primary_key) {
+		$id = $this->word_model->insert(['fk_word_type' => TYPE_kdlt]);
+		$this->kdlt_model->update($primary_key, ['fk_word' => $id]);
 	}
 
 	public function alphabet() {
-		$data['alphabet'] = $this->alphabet_model->get_all();
-		$this->display_view('administration/alphabet', $data);
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('alphabet')
+			 ->set_subject('Alphabet')
+			 ->columns('letter', 'kana', 'language')
+			 ->display_as('letter', 'Lettre')
+			 ->display_as('kana', 'Kana')
+			 ->display_as('language', 'Langue')
+			 ->callback_after_insert(array($this, 'alphabet_after_insert'));
+
+		$crud->fields('letter', 'kana', 'language');
+		$crud->required_fields('letter', 'kana', 'language');
+
+		$data['crud'] = $crud->render();
+		$data['categories'] = $this->category_model->get_all();
+		$this->display_view('administration/crud', $data);
+	}
+
+	function alphabet_after_insert($post_array, $primary_key) {
+		$id = $this->word_model->insert(['fk_word_type' => TYPE_alphabet]);
+		$this->alphabet_model->update($primary_key, ['fk_word' => $id]);
 	}
 
 	public function set_category() {
-		foreach ($_POST['check'] as $word) {
+		foreach ($_POST['check'] as $key => $value) {
 			$this->word_category_model->insert([
-				'fk_word' => $word,
-				'fk_category' => $word,
-				'order_by' => 1
+				'fk_word' => $key,
+				'fk_category' => $_POST['category'],
+				'order_by' => 0
 			]);
 		}
+		redirect($_SERVER['HTTP_REFERER']);
 	}
 
 	public function import() {

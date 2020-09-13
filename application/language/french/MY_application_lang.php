@@ -44,3 +44,6 @@ $lang['btn_reset']						= 'Remise à zéro';
 $lang['btn_back']						= 'Retour';
 $lang['btn_correct']					= 'Juste';
 $lang['btn_error']						= 'Faux';
+
+// Administration
+$lang['title_admin']					= 'Administration';
