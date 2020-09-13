@@ -1,3 +1,4 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <?php foreach ($series as $serie) { ?>
 	<?php if(count($serie->kanjis) == 0) { ?>
 		<h2><?=$serie->serie_name?> <?=$this->lang->line('msg_empty')?></h2>
