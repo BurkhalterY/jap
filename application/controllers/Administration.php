@@ -9,14 +9,48 @@ class Administration extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->load->model(array('word_model', 'kana_model', 'kanji_model', 'vocabulary_model', 'kdlt_model', 'alphabet_model'));
+		$this->load->model(array('word_model', 'kana_model', 'kanji_model', 'vocabulary_model', 'kdlt_model', 'alphabet_model', 'category_model', 'word_category_model'));
 	}
 
 	public function index() {
-		$query = $this->kana_model->get_all();
-		echo '<pre>';
-		var_dump($query);
-		echo '</pre>';
+		$this->display_view('administration/index');
+	}
+
+	public function kana() {
+		$data['kana'] = $this->kana_model->get_all();
+		$data['categories'] = $this->category_model->get_all();
+		$this->display_view('administration/kana', $data);
+	}
+
+	public function kanji() {
+		$data['kanji'] = $this->kanji_model->get_all();
+		$data['categories'] = $this->category_model->get_all();
+		$this->display_view('administration/kanji', $data);
+	}
+
+	public function vocabulary() {
+		$data['vocabulary'] = $this->vocabulary_model->get_all();
+		$this->display_view('administration/vocabulary', $data);
+	}
+
+	public function kdlt() {
+		$data['kdlt'] = $this->kdlt_model->get_all();
+		$this->display_view('administration/kdlt', $data);
+	}
+
+	public function alphabet() {
+		$data['alphabet'] = $this->alphabet_model->get_all();
+		$this->display_view('administration/alphabet', $data);
+	}
+
+	public function set_category() {
+		foreach ($_POST['check'] as $word) {
+			$this->word_category_model->insert([
+				'fk_word' => $word,
+				'fk_category' => $word,
+				'order_by' => 1
+			]);
+		}
 	}
 
 	public function import() {
