@@ -34,6 +34,7 @@ class Exploration extends MY_Controller {
 				case TYPE_VOC:
 					$vocabulary = $this->vocabulary_model->get_by('fk_word', $wordcat->word->id);
 					$vocabulary->note = $note->note ?? '';
+					$vocabulary->kanji_or_kana =  empty($vocabulary->kanji) ? $vocabulary->kana : $vocabulary->kanji;
 					$data['vocabulary'][] = $vocabulary;
 					break;
 				case TYPE_KDLT:

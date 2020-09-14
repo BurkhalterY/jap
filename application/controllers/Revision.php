@@ -6,32 +6,12 @@ class Revision extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model(array('category_model', 'serie_model', 'kanji_model', 'tracing_model', 'answer_model', 'note_model'));
+		$this->load->model(array('category_model'));
 	}
 
 	public function index() {
 		$data = ['title' => $this->lang->line('title_revision_2')];
 		$this->display_view('revision/index', $data);
-	}
-
-	public function selection() {
-		$this->category_model->order_by('order_by');
-		$data = ['title' => $this->lang->line('title_choice_words')];
-		$data['categories'] = $this->category_model->get_all();
-		$this->display_view('revision/selection', $data);
-	}
-
-	public function selection_ajax($id) {
-		$this->serie_model->order_by('order_by');
-		$data['series'] = $this->serie_model->get_many_by('fk_category', $id);
-		foreach ($data['series'] as $serie) {
-			$this->kanji_model->order_by('kanji_order');
-			$serie->kanjis = $this->kanji_model->get_many_by('fk_serie', $serie->id);
-			foreach ($serie->kanjis as $kanji) {
-				$kanji->srs = !boolval($this->note_model->count_by("fk_user = ".$_SESSION['user_id']." AND fk_kanji = ".$kanji->id." AND next_revision > NOW()"));
-			}
-		}
-		$this->load->view('revision/selection_ajax', $data);
 	}
 
 	public function trace() {
@@ -170,7 +150,7 @@ class Revision extends MY_Controller {
 		}
 	}
 
-	public function add_kanji_to_train($id, $active = null) {
+	public function add_word_to_train($id, $active = null) {
 		if(boolval($active)){
 			$_SESSION['to_train'][$id] = true;
 		} else if(isset($_SESSION['to_train'][$id])){

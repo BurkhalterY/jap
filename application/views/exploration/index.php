@@ -10,7 +10,9 @@
 	<?php } ?>
 </ul>
 <?php
-	if(isset($kana)){ include 'parts/kana.php'; };
+	if(isset($kana)){ include 'parts/kana.php'; }
+	if(isset($kanji)){ include 'parts/kanji.php'; }
+	if(isset($vocabulary)){ include 'parts/vocabulary.php'; }
 ?>
 <script>
 	function addNote(id) {

@@ -1,6 +1,39 @@
+<h2><?=$this->lang->line('kana')?></h2>
+<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-kana">Voir la liste</button>
+<div class="modal fade" id="modal-kana" tabindex="-1" role="dialog" aria-labelledby="modal-kana" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title">Liste des kana</h2>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table class="table">
+					<tr>
+						<th><?=$this->lang->line('romaji')?></th>
+						<th><?=$this->lang->line('kana')?></th>
+						<th><input type="checkbox"></th>
+					</tr>
+					<?php foreach ($kana as $value) { ?>
+						<tr>
+							<td><?=$value->romaji?></td>
+							<td><?=$value->kana?></td>
+							<td><input type="checkbox" name="check[<?=$value->fk_word?>]"></td>
+						</tr>
+					<?php } ?>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?=$this->lang->line('btn_close')?></button>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="text-justify">
 	<?php foreach ($kana as $key => $value) { ?>
-		<button type="button" class="btn btn-primary kanji-case" data-toggle="modal" data-target="#modal-kana-<?=$value->id?>"><?=$value->kana?></button>
+		<button type="button" class="btn btn-outline-success kanji-case" data-toggle="modal" data-target="#modal-kana-<?=$value->id?>"><?=$value->kana?></button>
 		<div class="modal fade" id="modal-kana-<?=$value->id?>" tabindex="-1" role="dialog" aria-labelledby="modal-kana-<?=$value->id?>" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">

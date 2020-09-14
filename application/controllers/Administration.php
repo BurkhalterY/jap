@@ -32,7 +32,7 @@ class Administration extends MY_Controller {
 		$crud->required_fields('romaji', 'kana');
 
 		$data['crud'] = $crud->render();
-		$data['categories'] = $this->category_model->get_all();
+		$data['categories'] = $this->category_model->order_by('id', 'DESC')->get_all();
 		$this->display_view('administration/crud', $data);
 	}
 
@@ -61,12 +61,12 @@ class Administration extends MY_Controller {
 		$crud->required_fields('kanji', 'meaning');
 
 		$data['crud'] = $crud->render();
-		$data['categories'] = $this->category_model->get_all();
+		$data['categories'] = $this->category_model->order_by('id', 'DESC')->get_all();
 		$this->display_view('administration/crud', $data);
 	}
 
 	function kanji_after_insert($post_array, $primary_key) {
-		$id = $this->word_model->insert(['fk_word_type' => TYPE_kanji]);
+		$id = $this->word_model->insert(['fk_word_type' => TYPE_KANJI]);
 		$this->kanji_model->update($primary_key, ['fk_word' => $id]);
 	}
 
@@ -87,12 +87,12 @@ class Administration extends MY_Controller {
 		$crud->required_fields('kana', 'translation');
 
 		$data['crud'] = $crud->render();
-		$data['categories'] = $this->category_model->get_all();
+		$data['categories'] = $this->category_model->order_by('id', 'DESC')->get_all();
 		$this->display_view('administration/crud', $data);
 	}
 
 	function vocabulary_after_insert($post_array, $primary_key) {
-		$id = $this->word_model->insert(['fk_word_type' => TYPE_vocabulary]);
+		$id = $this->word_model->insert(['fk_word_type' => TYPE_VOC]);
 		$this->vocabulary_model->update($primary_key, ['fk_word' => $id]);
 	}
 
@@ -119,12 +119,12 @@ class Administration extends MY_Controller {
 		$crud->required_fields('kdlt', 'chapter', 'kanji', 'keyword', 'story');
 
 		$data['crud'] = $crud->render();
-		$data['categories'] = $this->category_model->get_all();
+		$data['categories'] = $this->category_model->order_by('id', 'DESC')->get_all();
 		$this->display_view('administration/crud', $data);
 	}
 
 	function kdlt_after_insert($post_array, $primary_key) {
-		$id = $this->word_model->insert(['fk_word_type' => TYPE_kdlt]);
+		$id = $this->word_model->insert(['fk_word_type' => TYPE_KDLT]);
 		$this->kdlt_model->update($primary_key, ['fk_word' => $id]);
 	}
 
@@ -144,12 +144,12 @@ class Administration extends MY_Controller {
 		$crud->required_fields('letter', 'kana', 'language');
 
 		$data['crud'] = $crud->render();
-		$data['categories'] = $this->category_model->get_all();
+		$data['categories'] = $this->category_model->order_by('id', 'DESC')->get_all();
 		$this->display_view('administration/crud', $data);
 	}
 
 	function alphabet_after_insert($post_array, $primary_key) {
-		$id = $this->word_model->insert(['fk_word_type' => TYPE_alphabet]);
+		$id = $this->word_model->insert(['fk_word_type' => TYPE_ALPHABET]);
 		$this->alphabet_model->update($primary_key, ['fk_word' => $id]);
 	}
 
@@ -172,11 +172,12 @@ class Administration extends MY_Controller {
 	}
 
 	public function set_category() {
+		$i = $this->word_category_model->get_next_id();
 		foreach ($_POST['check'] as $key => $value) {
 			$this->word_category_model->insert([
 				'fk_word' => $key,
 				'fk_category' => $_POST['category'],
-				'order_by' => -1
+				'order_by' => ++$i
 			]);
 		}
 		redirect($_SERVER['HTTP_REFERER']);
