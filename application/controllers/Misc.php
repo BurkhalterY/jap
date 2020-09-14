@@ -12,6 +12,6 @@ class Misc extends MY_Controller {
 
 	public function about() {
 		$data = ['title' => $this->lang->line('title_about')];
-		$this->display_view('exploration/about', $data);
+		$this->display_view('misc/about', $data);
 	}
 }

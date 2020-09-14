@@ -22,10 +22,10 @@ class Administration extends MY_Controller {
 
 		$crud->set_theme('flexigrid_custom')
 			 ->set_table('kana')
-			 ->set_subject('Kana')
+			 ->set_subject($this->lang->line('kana'))
 			 ->columns('romaji', 'kana')
-			 ->display_as('romaji', 'Rōmaji')
-			 ->display_as('kana', 'Kana')
+			 ->display_as('romaji', $this->lang->line('romaji'))
+			 ->display_as('kana', $this->lang->line('kana'))
 			 ->callback_after_insert(array($this, 'kana_after_insert'));
 
 		$crud->fields('romaji', 'kana');
@@ -46,14 +46,15 @@ class Administration extends MY_Controller {
 
 		$crud->set_theme('flexigrid_custom')
 			 ->set_table('kanji')
-			 ->set_subject('Kanji')
+			 ->set_subject($this->lang->line('kanji'))
 			 ->columns('kanji', 'onyomi', 'kunyomi', 'meaning', 'strokes', 'jouyou', 'jlpt')
-			 ->display_as('kanji', 'Kanji')
-			 ->display_as('onyomi', 'On\'yomi')
-			 ->display_as('kunyomi', 'Kun\'yomi')
-			 ->display_as('strokes', 'Nombre de traits')
-			 ->display_as('jouyou', 'Jōyō')
-			 ->display_as('jlpt', 'Niveau JLPT')
+			 ->display_as('kanji', $this->lang->line('kanji'))
+			 ->display_as('onyomi', $this->lang->line('onyomi'))
+			 ->display_as('kunyomi', $this->lang->line('kunyomi'))
+			 ->display_as('meaning', $this->lang->line('meaning'))
+			 ->display_as('strokes', $this->lang->line('strokes'))
+			 ->display_as('jouyou', $this->lang->line('jouyou'))
+			 ->display_as('jlpt', $this->lang->line('jlpt'))
 			 ->callback_after_insert(array($this, 'kanji_after_insert'));
 
 		$crud->fields('kanji', 'onyomi', 'kunyomi', 'meaning', 'strokes', 'jouyou', 'jlpt');
@@ -74,12 +75,12 @@ class Administration extends MY_Controller {
 
 		$crud->set_theme('flexigrid_custom')
 			 ->set_table('vocabulary')
-			 ->set_subject('Voc')
+			 ->set_subject($this->lang->line('voc'))
 			 ->columns('kana', 'kanji', 'translation', 'jlpt')
-			 ->display_as('kana', 'Kana')
-			 ->display_as('kanji', 'Kanji')
-			 ->display_as('translation', 'Français')
-			 ->display_as('jlpt', 'Niveau JLPT')
+			 ->display_as('kana', $this->lang->line('kana'))
+			 ->display_as('kanji', $this->lang->line('kanji'))
+			 ->display_as('translation', $this->lang->line('translation'))
+			 ->display_as('jlpt', $this->lang->line('jlpt'))
 			 ->callback_after_insert(array($this, 'vocabulary_after_insert'));
 
 		$crud->fields('kana', 'kanji', 'translation', 'jlpt');
@@ -100,18 +101,18 @@ class Administration extends MY_Controller {
 
 		$crud->set_theme('flexigrid_custom')
 			 ->set_table('kdlt')
-			 ->set_subject('KDLT')
+			 ->set_subject($this->lang->line('kdlt'))
 			 ->columns('kdlt', 'chapter', 'kanji', 'keyword', 'story', 'note', 'component', 'strokes', 'jouyou', 'jlpt')
-			 ->display_as('kdlt', '#')
-			 ->display_as('chapter', 'Chapitre')
-			 ->display_as('kanji', 'Kanji')
-			 ->display_as('keyword', 'Mot clé')
-			 ->display_as('stroy', 'Histoire')
-			 ->display_as('note', 'Remarque')
-			 ->display_as('component', 'Composant')
-			 ->display_as('strokes', 'Nombre de traits')
-			 ->display_as('jouyou', 'Jōyō')
-			 ->display_as('jlpt', 'Niveau JLPT')
+			 ->display_as('kdlt', $this->lang->line('numero'))
+			 ->display_as('chapter', $this->lang->line('chapter'))
+			 ->display_as('kanji', $this->lang->line('kanji'))
+			 ->display_as('keyword', $this->lang->line('keyword'))
+			 ->display_as('story', $this->lang->line('story'))
+			 ->display_as('note', $this->lang->line('note'))
+			 ->display_as('component', $this->lang->line('component'))
+			 ->display_as('strokes', $this->lang->line('strokes'))
+			 ->display_as('jouyou', $this->lang->line('jouyou'))
+			 ->display_as('jlpt', $this->lang->line('jlpt'))
 			 ->callback_after_insert(array($this, 'kdlt_after_insert'));
 
 		$crud->fields('kdlt', 'chapter', 'kanji', 'keyword', 'story', 'note', 'component', 'strokes', 'jouyou', 'jlpt');
@@ -132,11 +133,11 @@ class Administration extends MY_Controller {
 
 		$crud->set_theme('flexigrid_custom')
 			 ->set_table('alphabet')
-			 ->set_subject('Alphabet')
+			 ->set_subject($this->lang->line('alphabet'))
 			 ->columns('letter', 'kana', 'language')
-			 ->display_as('letter', 'Lettre')
-			 ->display_as('kana', 'Kana')
-			 ->display_as('language', 'Langue')
+			 ->display_as('letter', $this->lang->line('letter'))
+			 ->display_as('kana', $this->lang->line('kana'))
+			 ->display_as('language', $this->lang->line('language'))
 			 ->callback_after_insert(array($this, 'alphabet_after_insert'));
 
 		$crud->fields('letter', 'kana', 'language');
@@ -156,10 +157,10 @@ class Administration extends MY_Controller {
 		$crud = new grocery_CRUD();
 
 		$crud->set_table('categories')
-			 ->set_subject('Cetégories')
+			 ->set_subject($this->lang->line('categories'))
 			 ->columns('cat_name', 'fk_parent_cat')
-			 ->display_as('cat_name', 'Catégorie')
-			 ->display_as('fk_parent_cat', 'Catégorie parente')
+			 ->display_as('cat_name', $this->lang->line('cat_name'))
+			 ->display_as('fk_parent_cat', $this->lang->line('fk_parent_cat'))
 			 ->set_relation('fk_parent_cat', 'categories', 'cat_name')
 			 ->add_action('Mots', '', 'administration/order_words', 'fas fa-external-link-alt');
 
@@ -223,7 +224,7 @@ class Administration extends MY_Controller {
 					$wordcat->denomination = $query->letter.' | '.$query->kana;
 					break;
 				default:
-					# code...
+					$wordcat->denomination = '?';
 					break;
 			}
 		}

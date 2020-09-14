@@ -160,7 +160,7 @@ class Revision extends MY_Controller {
 	}
 
 	public function add_note() {
-		$req = ['fk_user' => $_SESSION['user_id'], 'fk_kanji' => $this->input->post('kanji')];
+		$req = ['fk_user' => $_SESSION['user_id'], 'fk_word' => $this->input->post('word')];
 		$note = $this->note_model->get_by($req);
 		$req['note'] = $this->input->post('note');
 		if(is_null($note)){

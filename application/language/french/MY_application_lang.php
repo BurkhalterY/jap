@@ -24,8 +24,6 @@ $lang['btn_close']						= 'Fermer';
 $lang['global_note']					= 'Remarque globale';
 $lang['field_note']						= 'Remarque personnelle';
 $lang['meaning']						= 'traduction';
-$lang['kanji']							= 'kanji';
-$lang['kanas']							= 'kanas';
 $lang['title_about']					= 'À propos';
 
 // Révision
@@ -47,3 +45,32 @@ $lang['btn_error']						= 'Faux';
 
 // Administration
 $lang['title_admin']					= 'Administration';
+$lang['kana']							= 'Kana';
+$lang['kanji']							= 'Kanji';
+$lang['voc']							= 'Voc';
+$lang['vocabulary']						= 'Vocabulaire';
+$lang['kdlt']							= 'KDLT';
+$lang['alphabet']						= 'Alphabet';
+$lang['categories']						= 'Catégories';
+$lang['categories_order']				= 'Ordre des catégories';
+$lang['import']							= 'Import';
+$lang['export']							= 'Export';
+
+$lang['romaji']							= 'Rōmaji';
+$lang['onyomi']							= 'On\'yomi';
+$lang['kunyomi']						= 'Kun\'yomi';
+$lang['meaning']						= 'Sens';
+$lang['strokes']						= 'Nombre de traits';
+$lang['jouyou']							= 'Jōyō';
+$lang['jlpt']							= 'Niveau JLPT';
+$lang['translation']					= 'Français';
+$lang['numero']							= '#';
+$lang['chapter']						= 'Chapitre';
+$lang['keyword']						= 'Mot clé';
+$lang['story']							= 'Histoire';
+$lang['note']							= 'Remarque';
+$lang['component']						= 'Composant';
+$lang['letter']							= 'Lettre';
+$lang['language']						= 'Langue';
+$lang['cat_name']						= 'Catégorie';
+$lang['fk_parent_cat']					= 'Catégorie parente';
