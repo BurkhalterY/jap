@@ -20,7 +20,8 @@ class Administration extends MY_Controller {
 	public function kana() {
 		$crud = new grocery_CRUD();
 
-		$crud->set_table('kana')
+		$crud->set_theme('flexigrid_custom')
+			 ->set_table('kana')
 			 ->set_subject('Kana')
 			 ->columns('romaji', 'kana')
 			 ->display_as('romaji', 'Rōmaji')
@@ -43,7 +44,8 @@ class Administration extends MY_Controller {
 	public function kanji() {
 		$crud = new grocery_CRUD();
 
-		$crud->set_table('kanji')
+		$crud->set_theme('flexigrid_custom')
+			 ->set_table('kanji')
 			 ->set_subject('Kanji')
 			 ->columns('kanji', 'onyomi', 'kunyomi', 'meaning', 'strokes', 'jouyou', 'jlpt')
 			 ->display_as('kanji', 'Kanji')
@@ -70,7 +72,8 @@ class Administration extends MY_Controller {
 	public function vocabulary() {
 		$crud = new grocery_CRUD();
 
-		$crud->set_table('vocabulary')
+		$crud->set_theme('flexigrid_custom')
+			 ->set_table('vocabulary')
 			 ->set_subject('Voc')
 			 ->columns('kana', 'kanji', 'translation', 'jlpt')
 			 ->display_as('kana', 'Kana')
@@ -95,7 +98,8 @@ class Administration extends MY_Controller {
 	public function kdlt() {
 		$crud = new grocery_CRUD();
 
-		$crud->set_table('kdlt')
+		$crud->set_theme('flexigrid_custom')
+			 ->set_table('kdlt')
 			 ->set_subject('KDLT')
 			 ->columns('kdlt', 'chapter', 'kanji', 'keyword', 'story', 'note', 'component', 'strokes', 'jouyou', 'jlpt')
 			 ->display_as('kdlt', '#')
@@ -126,7 +130,8 @@ class Administration extends MY_Controller {
 	public function alphabet() {
 		$crud = new grocery_CRUD();
 
-		$crud->set_table('alphabet')
+		$crud->set_theme('flexigrid_custom')
+			 ->set_table('alphabet')
 			 ->set_subject('Alphabet')
 			 ->columns('letter', 'kana', 'language')
 			 ->display_as('letter', 'Lettre')
@@ -147,15 +152,82 @@ class Administration extends MY_Controller {
 		$this->alphabet_model->update($primary_key, ['fk_word' => $id]);
 	}
 
+	public function categories() {
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('categories')
+			 ->set_subject('Cetégories')
+			 ->columns('cat_name', 'fk_parent_cat')
+			 ->display_as('cat_name', 'Catégorie')
+			 ->display_as('fk_parent_cat', 'Catégorie parente')
+			 ->set_relation('fk_parent_cat', 'categories', 'cat_name')
+			 ->add_action('Mots', '', 'administration/order_words', 'fas fa-external-link-alt');
+
+		$crud->fields('cat_name', 'fk_parent_cat');
+		$crud->required_fields('cat_name');
+
+		$data['crud'] = $crud->render();
+		$this->display_view('administration/crud', $data);
+	}
+
 	public function set_category() {
 		foreach ($_POST['check'] as $key => $value) {
 			$this->word_category_model->insert([
 				'fk_word' => $key,
 				'fk_category' => $_POST['category'],
-				'order_by' => 0
+				'order_by' => -1
 			]);
 		}
 		redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	public function order_categories($parent = NULL) {
+		if(isset($_POST['submit'])){
+			for ($i = 0; $i < count($_POST['order']); $i++) {
+				$this->category_model->update($_POST['order'][$i], ['order_by' => $i]);
+			}
+		}
+		$data['category'] = $this->category_model->get($parent);
+		$data['categories'] = $this->category_model->order_by('order_by')->get_many_by('fk_parent_cat', $parent);
+		$this->display_view('administration/order_categories', $data);
+	}
+
+	public function order_words($category = NULL) {
+		if(isset($_POST['submit'])){
+			for ($i = 0; $i < count($_POST['order']); $i++) {
+				$this->word_category_model->update($_POST['order'][$i], ['order_by' => $i]);
+			}
+		}
+		$data['category'] = $this->category_model->get($category);
+		$data['wordcat'] = $this->word_category_model->with('word')->order_by('order_by')->get_many_by('fk_category', $category);
+		foreach ($data['wordcat'] as $wordcat) {
+			switch ($wordcat->word->fk_word_type) {
+				case TYPE_KANA:
+					$query = $this->kana_model->get_by('fk_word', $wordcat->word->id);
+					$wordcat->denomination = $query->kana.' | '.$query->romaji;
+					break;
+				case TYPE_KANJI:
+					$query = $this->kanji_model->get_by('fk_word', $wordcat->word->id);
+					$wordcat->denomination = $query->kanji.' | '.$query->meaning;
+					break;
+				case TYPE_VOC:
+					$query = $this->vocabulary_model->get_by('fk_word', $wordcat->word->id);
+					$wordcat->denomination = (empty($query->kanji) ? $query->kana : $query->kanji).' | '.$query->translation;
+					break;
+				case TYPE_KDLT:
+					$query = $this->kdlt_model->get_by('fk_word', $wordcat->word->id);
+					$wordcat->denomination = $query->kanji.' | '.$query->keyword;
+					break;
+				case TYPE_ALPHABET:
+					$query = $this->alphabet->get_by('fk_word', $wordcat->word->id);
+					$wordcat->denomination = $query->letter.' | '.$query->kana;
+					break;
+				default:
+					# code...
+					break;
+			}
+		}
+		$this->display_view('administration/order_words', $data);
 	}
 
 	public function import() {
