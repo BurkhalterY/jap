@@ -14,13 +14,11 @@
 					<tr>
 						<th><?=$this->lang->line('romaji')?></th>
 						<th><?=$this->lang->line('kana')?></th>
-						<th><input type="checkbox"></th>
 					</tr>
 					<?php foreach ($kana as $value) { ?>
 						<tr>
 							<td><?=$value->romaji?></td>
 							<td><?=$value->kana?></td>
-							<td><input type="checkbox" name="check[<?=$value->fk_word?>]"></td>
 						</tr>
 					<?php } ?>
 				</table>

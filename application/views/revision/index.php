@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <h1><?=$this->lang->line('title_revision_2')?></h1>
-<a href="<?=base_url('revision/selection')?>" class="btn btn-primary"><?=$this->lang->line('choice_words')?></a>
+<a href="<?=base_url('selection')?>" class="btn btn-primary"><?=$this->lang->line('choice_words')?></a>
 <br><br>
 <div class="row">
 	<div class="col-md-4 offset-md-1 text-center">

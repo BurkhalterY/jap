@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <h1><?=$this->lang->line('')?></h1>
 <ul>
-	<?php foreach ($categories as $categorie) { ?>
-		<li><a href="<?=base_url('exploration/index/'.$categorie->id)?>"><?=$categorie->cat_name?>
-		<?php if(!empty($categorie->image)) { ?>
-			<img src="<?=base_url('assets/images/'.$categorie->image)?>" alt="<?=$categorie->cat_name?>" class="img-fluid" />
+	<?php foreach ($categories as $category) { ?>
+		<li><a href="<?=base_url('exploration/index/'.$category->id)?>"><?=$category->cat_name?>
+		<?php if(!empty($category->image)) { ?>
+			<img src="<?=base_url('assets/images/'.$category->image)?>" alt="<?=$category->cat_name?>" class="img-fluid" />
 		<?php } ?>
 		</a></li>
 	<?php } ?>

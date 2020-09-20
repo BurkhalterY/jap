@@ -1,7 +1,41 @@
 <h2><?=$this->lang->line('kanji')?></h2>
+<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-kanji">Voir la liste</button>
+<div class="modal fade" id="modal-kanji" tabindex="-1" role="dialog" aria-labelledby="modal-kanji" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title">Liste des kanji</h2>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table class="table">
+					<tr>
+						<th><?=$this->lang->line('kanji')?></th>
+						<th><?=$this->lang->line('onyomi')?></th>
+						<th><?=$this->lang->line('kunyomi')?></th>
+						<th><?=$this->lang->line('meaning')?></th>
+					</tr>
+					<?php foreach ($kanji as $value) { ?>
+						<tr>
+							<td><?=$value->kanji?></td>
+							<td><?=$value->onyomi?></td>
+							<td><?=$value->kunyomi?></td>
+							<td><?=$value->meaning?></td>
+						</tr>
+					<?php } ?>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?=$this->lang->line('btn_close')?></button>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="text-justify">
 	<?php foreach ($kanji as $key => $value) { ?>
-		<button type="button" class="btn btn-primary kanji-case" data-toggle="modal" data-target="#modal-kanji-<?=$value->id?>"><?=$value->kanji?></button>
+		<button type="button" class="btn btn-outline-success kanji-case" data-toggle="modal" data-target="#modal-kanji-<?=$value->id?>"><?=$value->kanji?></button>
 		<div class="modal fade" id="modal-kanji-<?=$value->id?>" tabindex="-1" role="dialog" aria-labelledby="modal-kanji-<?=$value->id?>" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">

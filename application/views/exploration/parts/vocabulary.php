@@ -1,7 +1,39 @@
-<h2><?=$this->lang->line('kanji')?></h2>
+<h2><?=$this->lang->line('vocabulary')?></h2>
+<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-vocabulary">Voir la liste</button>
+<div class="modal fade" id="modal-vocabulary" tabindex="-1" role="dialog" aria-labelledby="modal-vocabulary" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title">Liste de vocabulaire</h2>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table class="table">
+					<tr>
+						<th><?=$this->lang->line('kanji')?></th>
+						<th><?=$this->lang->line('kana')?></th>
+						<th><?=$this->lang->line('translation')?></th>
+					</tr>
+					<?php foreach ($vocabulary as $value) { ?>
+						<tr>
+							<td><?=$value->kanji?></td>
+							<td><?=$value->kana?></td>
+							<td><?=$value->translation?></td>
+						</tr>
+					<?php } ?>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?=$this->lang->line('btn_close')?></button>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="text-justify">
 	<?php foreach ($vocabulary as $key => $value) { ?>
-		<button type="button" class="btn btn-primary kanji-case" data-toggle="modal" data-target="#modal-vocabulary-<?=$value->id?>"><?=$value->kanji_or_kana?></button>
+		<button type="button" class="btn btn-outline-success kanji-case" data-toggle="modal" data-target="#modal-vocabulary-<?=$value->id?>"><?=$value->kanji_or_kana?></button>
 		<div class="modal fade" id="modal-vocabulary-<?=$value->id?>" tabindex="-1" role="dialog" aria-labelledby="modal-vocabulary-<?=$value->id?>" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">

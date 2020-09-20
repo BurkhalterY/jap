@@ -6,7 +6,7 @@ class Revision extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model(array('category_model'));
+		$this->load->model(array('word_model'));
 	}
 
 	public function index() {
@@ -17,10 +17,10 @@ class Revision extends MY_Controller {
 	public function trace() {
 		$data = ['title' => $this->lang->line('write_kanjis')];
 		if(count($_SESSION['to_train']) > 0){
-			$data['kanji'] = $this->kanji_model->get(array_rand($_SESSION['to_train']));
+			$data['word'] = $this->word_model->get(array_rand($_SESSION['to_train']));
 			$this->display_view('revision/trace', $data);
 		} else {
-			redirect(base_url('revision/selection'));
+			redirect(base_url('selection'));
 		}
 	}
 
@@ -104,7 +104,7 @@ class Revision extends MY_Controller {
 			$data['kanji'] = $this->kanji_model->get(array_rand($_SESSION['to_train']));
 			$this->display_view('revision/translate', $data);
 		} else {
-			redirect(base_url('revision/selection'));
+			redirect(base_url('selection'));
 		}
 	}
 
@@ -139,37 +139,4 @@ class Revision extends MY_Controller {
 		redirect('revision/translate');
 	}
 
-	public function add_note() {
-		$req = ['fk_user' => $_SESSION['user_id'], 'fk_word' => $this->input->post('word')];
-		$note = $this->note_model->get_by($req);
-		$req['note'] = $this->input->post('note');
-		if(is_null($note)){
-			$this->note_model->insert($req);
-		} else {
-			$this->note_model->update($note->id, $req);
-		}
-	}
-
-	public function add_word_to_train($id, $active = null) {
-		if(boolval($active)){
-			$_SESSION['to_train'][$id] = true;
-		} else if(isset($_SESSION['to_train'][$id])){
-			unset($_SESSION['to_train'][$id]);
-		}
-	}
-
-	public function add_serie_to_train($id, $active = null) {
-		$kanjis = $this->kanji_model->get_many_by('fk_serie', $id);
-		foreach ($kanjis as $kanji) {
-			$this->add_kanji_to_train($kanji->id, $active);
-		}
-	}
-
-	public function add_srs_to_train($id) {
-		$this->add_serie_to_train($id, false);
-		$kanjis = $this->kanji_model->get_many_by('fk_serie', $id);
-		foreach ($kanjis as $kanji) {
-			$this->add_kanji_to_train($kanji->id, !boolval($this->note_model->count_by("fk_user = ".$_SESSION['user_id']." AND fk_kanji = ".$kanji->id." AND next_revision > NOW()")));
-		}
-	}
 }
