@@ -6,7 +6,7 @@ class Selection extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model(array('category_model', 'word_category_model', 'note_model'));
+		$this->load->model(array('category_model', 'word_category_model', 'note_model', 'mode_model'));
 	}
 
 	public function index() {
@@ -56,5 +56,43 @@ class Selection extends MY_Controller {
 		foreach ($words as $word) {
 			$this->add_word_to_train($word->fk_word, !boolval($this->note_model->count_by("fk_user = ".$_SESSION['user_id']." AND fk_word = ".$word->id." AND next_revision > NOW()")));
 		}
+	}
+
+	public function modes() {
+		$data = ['title' => $this->lang->line('title_choice_modes')];
+
+		$data['modes'] = $this->mode_model->get_all();
+
+		/*$data['groups'] = [
+			'kana' => [
+				'revision_kana_to_romaji_multiple_choice',
+				'revision_romaji_to_kana_multiple_choice',
+				'revision_kana_to_romaji_write',
+				'revision_romaji_to_kana_trace'
+			],
+			'kanji' => [
+				'revision_kanji_to_meaning_multiple_choice',
+				'revision_meaning_to_kanji_multiple_choice',
+				'revision_kanji_to_meaning_write',
+				'revision_meaning_to_kanji_trace'
+			],
+			'voc' => [
+				'revision_translation_to_japanese_multiple_choice',
+				'revision_japanese_to_translation_multiple_choice',
+				'revision_translation_to_japanese_romaji_write',
+				'revision_translation_to_japanese_trace',
+				'revision_japanese_to_translation_write'
+			]
+		];*/
+		if(isset($_POST['submit'])){
+			unset($_SESSION['modes']);
+			foreach ($data['modes'] as $mode) {
+				$_SESSION['modes'][$mode->fk_word_type] = [];
+			}
+			foreach ($_POST['modes'] as $mode => $type) {
+				$_SESSION['modes'][$type][] = $mode;
+			}
+		}
+		$this->display_view('selection/modes', $data);
 	}
 }

@@ -17,24 +17,35 @@ $lang['msg_login']						= 'Déjà membre ? Accèder au menu de connexion';
 $lang['msg_register']					= 'Pas encore membre ? Créer un compte maintenant';
 
 // Exploration
-$lang['title_list']						= 'Voir les kanjis';
+$lang['title_list']						= 'Parcourir';
 $lang['msg_empty']						= '(à venir...)';
 $lang['btn_save']						= 'Sauvegarder';
 $lang['btn_close']						= 'Fermer';
 $lang['global_note']					= 'Remarque globale';
 $lang['field_note']						= 'Remarque personnelle';
-$lang['meaning']						= 'traduction';
-$lang['title_about']					= 'À propos';
+
+// Sélection
+$lang['title_choice_words']				= 'Choisir les mots à réviser';
+$lang['title_choice_modes']				= 'Choisir les modes de révision';
+$lang['select_all']						= 'Tout sélectionner';
+$lang['srs']							= 'Séletion optimale';
+$lang['revision_kana_to_romaji_multiple_choice']			= 'Kana → Rōmaji (choix multiples)';
+$lang['revision_romaji_to_kana_multiple_choice']			= 'Rōmaji → Kana (choix multiples)';
+$lang['revision_kana_to_romaji_write']						= 'Kana → Rōmaji';
+$lang['revision_romaji_to_kana_trace']						= 'Rōmaji → Kana (tracé)';
+$lang['revision_kanji_to_meaning_multiple_choice']			= 'Kanji → Sens (choix multiples)';
+$lang['revision_meaning_to_kanji_multiple_choice']			= 'Sens → Kanji (choix multiples)';
+$lang['revision_kanji_to_meaning_write']					= 'Kanji → Sens';
+$lang['revision_meaning_to_kanji_trace']					= 'Sens → Kanji (tracé)';
+$lang['revision_translation_to_japanese_multiple_choice']	= 'FR → JA (choix multiples)';
+$lang['revision_japanese_to_translation_multiple_choice']	= 'JA → FR (choix multiples)';
+$lang['revision_translation_to_japanese_romaji_write']		= 'FR → JA (rōmaji)';
+$lang['revision_translation_to_japanese_trace']				= 'FR → JA (tracé)';
+$lang['revision_japanese_to_translation_write']				= 'JA → FR';
 
 // Révision
 $lang['title_revision']					= 'Réviser';
 $lang['title_revision_2']				= 'Révision';
-$lang['title_choice_words']				= 'Quels mots travailler ?';
-$lang['select_all']						= 'Tout sélectionner';
-$lang['srs']							= 'Séletion optimale';
-$lang['choice_words']					= 'Choisir les mots à réviser';
-$lang['write_kanjis']					= 'Écrire les kanjis';
-$lang['translate']						= 'S\'entrainer à traduire';
 $lang['official_answer']				= 'Réponse officielle';
 $lang['your_answer']					= 'Votre réponse';
 $lang['btn_validate']					= 'Valider';
@@ -42,6 +53,9 @@ $lang['btn_reset']						= 'Remise à zéro';
 $lang['btn_back']						= 'Retour';
 $lang['btn_correct']					= 'Juste';
 $lang['btn_error']						= 'Faux';
+
+// Misc
+$lang['title_about']					= 'À propos';
 
 // Administration
 $lang['title_admin']					= 'Administration';

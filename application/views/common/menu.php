@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+$logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true;
+
 function is_active($pattern)
 {
 	$subject = $_SERVER['REQUEST_URI'];
@@ -15,7 +17,7 @@ function is_active($pattern)
 			<li class="nav-item <?=is_active('/\/exploration/i') ? 'active' : ''?>">
 				<a class="nav-link" href="<?=base_url('exploration')?>"><?=$this->lang->line('title_list')?></a>
 			</li>
-			<?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) { ?>
+			<?php if ($logged_in) { ?>
 				<li class="nav-item <?=is_active('/\/revision/i') ? 'active' : ''?>">
 					<a class="nav-link" href="<?=base_url('revision')?>"><?=$this->lang->line('title_revision')?></a>
 				</li>
@@ -24,9 +26,6 @@ function is_active($pattern)
 						<a class="nav-link" href="<?=base_url('administration')?>"><?=$this->lang->line('title_admin')?></a>
 					</li>
 				<?php } ?>
-				<li class="nav-item">
-					<a class="nav-link" href="<?=base_url('user/logout')?>"><?=$this->lang->line('title_logout')?></a>
-				</li>
 			<?php } else { ?>
 				<li class="nav-item <?=is_active('/\/user\/login/i') ? 'active' : ''?>">
 					<a class="nav-link" href="<?=base_url('user/login')?>"><?=$this->lang->line('title_login')?></a>
@@ -40,5 +39,8 @@ function is_active($pattern)
 			</li>
 		</ul>
 	</div>
+	<?php if($logged_in) { ?>
+		<a class="navbar-text" href="<?=base_url('user/logout')?>"><?=$this->lang->line('title_logout')?></a>
+	<?php } ?>
 </nav>
 <div class="container">

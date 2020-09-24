@@ -1,3 +1,4 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <?php foreach ($categories as $category) { ?>
 	<?php if(count($category->words) == 0) { ?>
 		<h2><?=$category->cat_name?> <?=$this->lang->line('msg_empty')?></h2>
