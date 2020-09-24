@@ -61,7 +61,7 @@ class Selection extends MY_Controller {
 	public function modes() {
 		$data = ['title' => $this->lang->line('title_choice_modes')];
 
-		$data['modes'] = $this->mode_model->get_all();
+		$data['modes'] = $this->mode_model->with('word_type')->get_all();
 
 		/*$data['groups'] = [
 			'kana' => [
@@ -93,6 +93,16 @@ class Selection extends MY_Controller {
 				$_SESSION['modes'][$type][] = $mode;
 			}
 		}
-		$this->display_view('selection/modes', $data);
+		foreach ($_SESSION['modes'] as $mode) {
+			if(count($mode) == 0){
+				$data['error'] = $this->lang->line('msg_error_modes');
+				break;
+			}
+		}
+		if(isset($_POST['submit']) && !isset($data['error'])){
+			redirect('revision');
+		} else {
+			$this->display_view('selection/modes', $data);
+		}
 	}
 }

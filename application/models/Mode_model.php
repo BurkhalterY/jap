@@ -6,6 +6,8 @@ class mode_model extends MY_Model
 	protected $_table = 'modes';
 	protected $primary_key = 'id';
 	protected $protected_attributes = ['id'];
+	protected $belongs_to = ['word_type' => ['primary_key' => 'fk_word_type',
+											 'model' => 'word_type_model']];
 
 	/**
 	 * Constructor

@@ -29,6 +29,7 @@ $lang['title_choice_words']				= 'Choisir les mots à réviser';
 $lang['title_choice_modes']				= 'Choisir les modes de révision';
 $lang['select_all']						= 'Tout sélectionner';
 $lang['srs']							= 'Séletion optimale';
+$lang['msg_error_modes']				= 'Erreur: veuillez sélectionner au moins un mode par type.';
 $lang['revision_kana_to_romaji_multiple_choice']			= 'Kana → Rōmaji (choix multiples)';
 $lang['revision_romaji_to_kana_multiple_choice']			= 'Rōmaji → Kana (choix multiples)';
 $lang['revision_kana_to_romaji_write']						= 'Kana → Rōmaji';
