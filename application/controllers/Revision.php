@@ -15,10 +15,16 @@ class Revision extends MY_Controller {
 	}
 
 	public function revision() {
+		if(!isset($_SESSION['modes'])){
+			redirect(base_url('selection/modes'));
+		}
 		foreach ($_SESSION['modes'] as $group) {
 			if(count($group) == 0){
 				redirect(base_url('selection/modes'));
 			}
+		}
+		if(!isset($_SESSION['to_train'])){
+			redirect(base_url('selection'));
 		}
 		if(count($_SESSION['to_train']) == 0){
 			redirect(base_url('selection'));
@@ -71,14 +77,30 @@ class Revision extends MY_Controller {
 					$this->display_view('revision/kanji/meaning_to_kanji_trace', $data);
 					break;
 				case REVISION_TRANSLATION_TO_JAPANESE_MULTIPLE_CHOICE:
+					$data['voc'] = $this->vocabulary_model->get_by('fk_word', $word->id);
+					$data['multiple_choice'] = $this->vocabulary_model->order_by('RAND()')->limit(4)->get_many_by(['fk_word' => array_keys($_SESSION['to_train']), 'id != '.$data['voc']->id]);
+					$data['multiple_choice'][] = $data['voc'];
+					shuffle($data['multiple_choice']);
+					$this->display_view('revision/voc/japanese_to_translation_multiple_choice', $data);
 					break;
 				case REVISION_JAPANESE_TO_TRANSLATION_MULTIPLE_CHOICE:
+					$data['voc'] = $this->vocabulary_model->get_by('fk_word', $word->id);
+					$data['multiple_choice'] = $this->vocabulary_model->order_by('RAND()')->limit(4)->get_many_by(['fk_word' => array_keys($_SESSION['to_train']), 'id != '.$data['voc']->id]);
+					$data['multiple_choice'][] = $data['voc'];
+					shuffle($data['multiple_choice']);
+					$this->display_view('revision/voc/translation_to_japanese_multiple_choice', $data);
 					break;
 				case REVISION_TRANSLATION_TO_JAPANESE_ROMAJI_WRITE:
+					$data['voc'] = $this->vocabulary_model->get_by('fk_word', $word->id);
+					$this->display_view('revision/voc/translation_to_japanese_write', $data);
 					break;
 				case REVISION_TRANSLATION_TO_JAPANESE_TRACE:
+					$data['voc'] = $this->vocabulary_model->get_by('fk_word', $word->id);
+					$this->display_view('revision/voc/translation_to_japanese_trace', $data);
 					break;
 				case REVISION_JAPANESE_TO_TRANSLATION_WRITE:
+					$data['voc'] = $this->vocabulary_model->get_by('fk_word', $word->id);
+					$this->display_view('revision/voc/japanese_to_translation_write', $data);
 					break;
 			}
 		}
@@ -110,8 +132,8 @@ class Revision extends MY_Controller {
 					$official_answer_1 = preg_replace('/\(.*\)/', '', $official_answer_1);
 					$official_answer_2 = preg_replace('/[\(\)]/', '', $official_answer_2);
 				}
-				$data['correct'] = strtolower($your_answer) == strtolower($official_answer_1)
-								|| strtolower($your_answer) == strtolower($official_answer_2);
+				$data['correct'] = strtolower(trim($your_answer)) == strtolower($official_answer_1)
+								|| strtolower(trim($your_answer)) == strtolower($official_answer_2);
 
 				$this->display_view('revision/kana/kana_to_romaji_write_validate', $data);
 				break;
@@ -137,7 +159,7 @@ class Revision extends MY_Controller {
 				$data['answer'] = $_POST['answer'];
 				$data['correct'] = false;
 				foreach (explode(',', $data['kanji']->meaning) as $m) {
-					if(strtolower(trim($m)) == strtolower($data['answer'])){
+					if(strtolower(trim($m)) == strtolower(trim($data['answer']))){
 						$data['correct'] = true;
 					}
 				}
@@ -149,14 +171,33 @@ class Revision extends MY_Controller {
 				$this->display_view('revision/kanji/meaning_to_kanji_trace_validate', $data);
 				break;
 			case REVISION_TRANSLATION_TO_JAPANESE_MULTIPLE_CHOICE:
+				$data['voc'] = $this->vocabulary_model->get_by('fk_word', $word);
+				$data['answer'] = urldecode($_GET['answer']);
+				$data['correct'] = $data['voc']->translation == $data['answer'];
+				$this->display_view('revision/voc/japanese_to_translation_multiple_choice_validate', $data);
 				break;
 			case REVISION_JAPANESE_TO_TRANSLATION_MULTIPLE_CHOICE:
+				$data['voc'] = $this->vocabulary_model->get_by('fk_word', $word);
+				$data['answer'] = urldecode($_GET['answer']);
+				$data['correct'] = $data['voc']->kanji_or_kana == $data['answer'];
+				$this->display_view('revision/voc/translation_to_japanese_multiple_choice_validate', $data);
 				break;
 			case REVISION_TRANSLATION_TO_JAPANESE_ROMAJI_WRITE:
+				$data['voc'] = $this->vocabulary_model->get_by('fk_word', $word);
+				$data['answer'] = $_POST['answer'];
+				$data['correct'] = strtolower(trim($data['answer'])) == strtolower($data['voc']->translation);
+				$this->display_view('revision/voc/translation_to_japanese_write_validate', $data);
 				break;
 			case REVISION_TRANSLATION_TO_JAPANESE_TRACE:
+				$data['voc'] = $this->vocabulary_model->get_by('fk_word', $word);
+				$data['base64'] = $_POST['image'];
+				$this->display_view('revision/voc/translation_to_japanese_trace_validate', $data);
 				break;
 			case REVISION_JAPANESE_TO_TRANSLATION_WRITE:
+				$data['voc'] = $this->vocabulary_model->get_by('fk_word', $word);
+				$data['answer'] = $_POST['answer'];
+				$data['correct'] = tokanaaa(trim($data['answer'])) == $data['voc']->translation;
+				$this->display_view('revision/voc/japanese_to_translation_write_validate', $data);
 				break;
 		}
 	}

@@ -3,7 +3,7 @@
 	<h1 class="display-1"><?=$kanji->meaning?></h1>
 
 	<span class="big-kanji"><?=$kanji->kanji?></span>
-	<img src="<?=$base64?>" alt="Kanji tracing" /><br>
+	<img src="<?=$base64?>" alt="Tracing" /><br>
 
 	<a href="<?=base_url('revision/revision')?>" class="btn btn-primary">Suivant</a>
 </div>

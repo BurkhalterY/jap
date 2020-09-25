@@ -84,13 +84,18 @@ class Selection extends MY_Controller {
 				'revision_japanese_to_translation_write'
 			]
 		];*/
-		if(isset($_POST['submit'])){
+		if(isset($_POST['modes'])){
 			unset($_SESSION['modes']);
 			foreach ($data['modes'] as $mode) {
 				$_SESSION['modes'][$mode->fk_word_type] = [];
 			}
 			foreach ($_POST['modes'] as $mode => $type) {
 				$_SESSION['modes'][$type][] = $mode;
+			}
+		}
+		if(!isset($_SESSION['modes'])){
+			foreach ($data['modes'] as $mode) {
+				$_SESSION['modes'][$mode->fk_word_type] = [];
 			}
 		}
 		foreach ($_SESSION['modes'] as $mode) {

@@ -8,6 +8,7 @@ class vocabulary_model extends MY_Model
 	protected $protected_attributes = ['id'];
 	protected $belongs_to = ['word' => ['primary_key' => 'fk_word',
 										'model' => 'word_model']];
+	protected $after_get = ['after_get'];
 
 	/**
 	 * Constructor
@@ -17,4 +18,10 @@ class vocabulary_model extends MY_Model
 		parent::__construct();
 	}
 
+
+	function after_get($row)
+	{
+		$row->kanji_or_kana = empty($row->kanji) ? $row->kana : $row->kanji;
+		return $row;
+	}
 }
