@@ -8,7 +8,6 @@
 		<meta name="description" content="<?=$this->lang->line('meta_description')?>" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap.min.css')?>">
 		<link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/styles.css')?>">
-		<link rel="stylesheet" type="text/css" href="<?=base_url('assets/fontawesome/css/all.css')?>">
 		<link rel="icon" type="image/png" href="<?=base_url('assets/images/favicon.png')?>" />
 		<script src="<?=base_url('assets/js/jquery-3.4.1.min.js')?>"></script>	
 		<script src="<?=base_url('assets/js/bootstrap.bundle.min.js')?>"></script>	

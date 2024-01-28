@@ -14,7 +14,7 @@
 		<input type="hidden" name="image" id="image">
 		<input type="hidden" name="json" id="json">
 		<button type="button" id="back" class="btn btn-primary" onclick="window.location.href='<?=base_url('revision')?>'"><?=$this->lang->line('btn_back')?></button>
-		<button type="button" id="new" class="btn btn-primary" onclick="location.reload();"><i class="fas fa-redo-alt"></i></button>
+		<button type="button" id="new" class="btn btn-primary" onclick="location.reload();">↺</button>
 		<button type="button" id="reset" class="btn btn-danger" onclick="resetCanvas()"><?=$this->lang->line('btn_reset')?></button>
 		<button type="button" id="save" class="btn btn-success" onclick="validate()"><?=$this->lang->line('btn_validate')?></button>
 	</form>

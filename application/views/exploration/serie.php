@@ -48,12 +48,12 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-6">
-								<h3><?=$this->lang->line('meaning')?> <img src="<?=base_url('assets/images/fr.png')?>" alt="🇫🇷" /></h3>
+								<h3><?=$this->lang->line('meaning')?> <img src="<?=base_url('assets/images/lang/fr.png')?>" alt="🇫🇷" /></h3>
 								<p><?=$kanji->meaning?></p>
 							</div>
 							<?php if(!empty($kanji->kanas)){?>
 								<div class="col-md-6">
-									<h3><?=$this->lang->line('kanas')?> <img src="<?=base_url('assets/images/jp.png')?>" alt="🇯🇵" /></h3>
+									<h3><?=$this->lang->line('kanas')?> <img src="<?=base_url('assets/images/lang/jp.png')?>" alt="🇯🇵" /></h3>
 									<p><?=$kanji->kanas?></p>
 								</div>
 							<?php } ?>
@@ -68,10 +68,10 @@
 					</div>
 					<div class="modal-footer">
 						<?php if($key > 0) { ?>
-							<button type="button" class="btn btn-outline-success<?=$key == count($kanjis) - 1 ? ' mr-auto' : ''?>" onclick="change(<?=$kanji->id?>, <?=$kanjis[$key-1]->id?>);"><i class="fas fa-arrow-left"></i></button>
+							<button type="button" class="btn btn-outline-success<?=$key == count($kanjis) - 1 ? ' mr-auto' : ''?>" onclick="change(<?=$kanji->id?>, <?=$kanjis[$key-1]->id?>);">←</button>
 						<?php } ?>
 						<?php if($key < count($kanjis) - 1) { ?>
-							<button type="button" class="btn btn-outline-success mr-auto" onclick="change(<?=$kanji->id?>, <?=$kanjis[$key+1]->id?>);"><i class="fas fa-arrow-right"></i></button>
+							<button type="button" class="btn btn-outline-success mr-auto" onclick="change(<?=$kanji->id?>, <?=$kanjis[$key+1]->id?>);">→</button>
 						<?php } ?>
 						<?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) { ?>
 							<button type="button" class="btn btn-primary" onclick="addNote(<?=$kanji->id?>);"><?=$this->lang->line('btn_save')?></button>

@@ -6,7 +6,7 @@
 		<div class="col-md-4">
 			<strong><?=$category->cat_name?></strong>
 			<a data-toggle="modal" href="#modal-<?=$category->id?>">
-				<img src="<?=base_url('assets/images/'.$category->image)?>" alt="<?=$category->cat_name?>" class="img-fluid" />
+				<img src="<?=base_url('assets/images/cat/'.$category->image)?>" alt="<?=$category->cat_name?>" class="img-fluid" />
 			</a>
 			<div class="modal fade" id="modal-<?=$category->id?>" tabindex="-1" role="dialog" aria-labelledby="modal-<?=$category->id?>" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered modal-lg" role="document">

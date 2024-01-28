@@ -10,7 +10,7 @@ class Revision extends MY_Controller {
 	}
 
 	public function index() {
-		$data = ['title' => $this->lang->line('title_revision_2')];
+		$data = ['title' => $this->lang->line('title_revision')];
 		$this->display_view('revision/index', $data);
 	}
 
@@ -36,7 +36,7 @@ class Revision extends MY_Controller {
 
 	public function trace() {
 		$data = ['title' => $this->lang->line('write_kanjis')];
-		if(count($_SESSION['to_train']) > 0){
+		if(array_key_exists('to_train', $_SESSION) && count($_SESSION['to_train']) > 0){
 			$data['kanji'] = $this->kanji_model->get(array_rand($_SESSION['to_train']));
 			$this->display_view('revision/trace', $data);
 		} else {
@@ -120,7 +120,7 @@ class Revision extends MY_Controller {
 
 	public function translate() {
 		$data = ['title' => $this->lang->line('translate')];
-		if(count($_SESSION['to_train']) > 0){
+		if(array_key_exists('to_train', $_SESSION) && count($_SESSION['to_train']) > 0){
 			$data['kanji'] = $this->kanji_model->get(array_rand($_SESSION['to_train']));
 			$this->display_view('revision/translate', $data);
 		} else {

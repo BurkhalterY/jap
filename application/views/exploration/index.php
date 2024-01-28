@@ -5,7 +5,7 @@
 		<div class="col-md-4">
 			<strong><?=$categorie->cat_name?></strong>
 			<a href="<?=base_url('exploration/category/'.$categorie->id)?>">
-				<img src="<?=base_url('assets/images/'.$categorie->image)?>" alt="<?=$categorie->cat_name?>" class="img-fluid" />
+				<img src="<?=base_url('assets/images/cat/'.$categorie->image)?>" alt="<?=$categorie->cat_name?>" class="img-fluid" />
 			</a>
 		</div>
 	<?php } ?>

@@ -5,7 +5,7 @@
 	<div id="form">
 		<input type="text" id="your-answer" class="form-control form-custom" onkeydown="enter(event)" autofocus><br>
 		<button type="button" id="back" class="btn btn-primary" onclick="window.location.href='<?=base_url('revision')?>'"><?=$this->lang->line('btn_back')?></button>
-		<button type="button" id="new" class="btn btn-primary" onclick="location.reload();"><i class="fas fa-redo-alt"></i></button>
+		<button type="button" id="new" class="btn btn-primary" onclick="location.reload();">↺</button>
 		<button type="button" id="save" class="btn btn-success" onclick="validate()"><?=$this->lang->line('btn_validate')?></button>
 	</div>
 	<div id="validate" style="display: none;">

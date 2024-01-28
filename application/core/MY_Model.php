@@ -37,8 +37,8 @@ class MY_Model extends CI_Model
 	/**
 	 * Support for soft deletes and this model's 'deleted' key
 	 */
-	protected $soft_delete = FALSE;
-	protected $soft_delete_key = 'deleted';
+	protected $soft_delete = TRUE;
+	protected $soft_delete_key = 'archived';
 	protected $_temporary_with_deleted = FALSE;
 	protected $_temporary_only_deleted = FALSE;
 
