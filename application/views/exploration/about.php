@@ -1,4 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
+<a href="https://github.com/BurkhalterY/jap" target="_blank" class="position-absolute" style="right: 0;">
+    <img decoding="async" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_white_ffffff.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" title="Fork me on GitHub" loading="lazy" data-recalc-dims="1">
+</a>
 <h1><?=$this->lang->line('title_about')?></h1>
 <strong>Quelques ressources</strong>
 <ul>
@@ -8,4 +11,3 @@
     <li>L'Application <a href="https://apps.ankiweb.net/" target="_blank">Anki</a></li>
     <li>La section <i>Japonais</i> du blog <a href="https://akeminosekai.github.io/japonais_1.html" target="_blank">Akemi no sekai</a></li>
 </ul>
-<strong>Dépôt du projet : </strong><a href="https://github.com/BurkhalterY/jap" target="_blank">https://github.com/BurkhalterY/jap</a>
