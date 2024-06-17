@@ -8,10 +8,6 @@ class kanji_model extends MY_Model
 	protected $protected_attributes = ['id'];
 	protected $belongs_to = ['serie' => ['primary_key' => 'fk_serie',
 										'model' => 'serie_model']];
-	protected $has_many = ['notes' => ['primary_key' => 'fk_kanji',
-									   'model' => 'note_model'],
-						   'tracings' => ['primary_key' => 'fk_kanji',
-										  'model' => 'tracing_model']];
 
 	/**
 	 * Constructor

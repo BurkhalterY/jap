@@ -31,12 +31,6 @@
 
 			let answer = $('#your-answer').val();
 			$('#answer').html(answer);
-
-
-			let _href = $("#btn-error").attr("href");
-			$("#btn-error").attr("href", _href + '?a=' + answer);
-			_href = $("#btn-correct").attr("href");
-			$("#btn-correct").attr("href", _href + '?a=' + answer);
 		}
 	</script>
 </div>

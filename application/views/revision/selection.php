@@ -74,18 +74,4 @@
 
 		$.ajax("<?=base_url('revision/add_serie_to_train')?>/"+id+active);
 	}
-
-	function addSRS(id) {
-		let disabledKanjis = $('#collapse-'+id+' > button.kanji-select');
-		disabledKanjis.removeClass('btn-success');
-		disabledKanjis.addClass('btn-outline-secondary');
-
-		let kanjis = $('#collapse-'+id+' > button.srs');
-		if(kanjis.hasClass('btn-outline-secondary')){
-			kanjis.removeClass('btn-outline-secondary');
-			kanjis.addClass('btn-success');
-		}
-
-		$.ajax("<?=base_url('revision/add_srs_to_train')?>/"+id);
-	}
 </script>

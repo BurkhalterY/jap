@@ -62,9 +62,6 @@
 						<hr>
 							<p><strong><?=$this->lang->line('global_note')?> :<br></strong><?=$kanji->global_note?></p>
 						<?php } ?>
-						<?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) { ?>
-							<textarea id="form-<?=$kanji->id?>" class="form-control" placeholder="<?=$this->lang->line('field_note')?>"><?=$kanji->note??''?></textarea>
-						<?php } ?>
 					</div>
 					<div class="modal-footer">
 						<?php if($key > 0) { ?>
@@ -72,9 +69,6 @@
 						<?php } ?>
 						<?php if($key < count($kanjis) - 1) { ?>
 							<button type="button" class="btn btn-outline-success mr-auto" onclick="change(<?=$kanji->id?>, <?=$kanjis[$key+1]->id?>);">→</button>
-						<?php } ?>
-						<?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) { ?>
-							<button type="button" class="btn btn-primary" onclick="addNote(<?=$kanji->id?>);"><?=$this->lang->line('btn_save')?></button>
 						<?php } ?>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal"><?=$this->lang->line('btn_close')?></button>
 					</div>
@@ -84,17 +78,6 @@
 	<?php } ?>
 </div>
 <script>
-	function addNote(id) {
-		$.ajax({
-			method: "POST",
-			url: "<?=base_url('revision/add_note')?>",
-			data: {
-				kanji: id,
-				note: $('#form-'+id).val()
-			}
-		});
-	}
-
 	function change(current, next) {
 		$('#modal-'+current).modal('toggle');
 		$('#modal-'+next).modal('toggle');
