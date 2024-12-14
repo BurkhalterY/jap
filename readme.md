@@ -7,7 +7,7 @@ A project to help people to learn Japanese. I made it when I was trying to learn
 
 ### Prerequisites
 
-- PHP 7.4 (PHP ⩾8.0 is not compatible yet)
+- PHP>=8.1
 - MySQL
 
 ### Installing
