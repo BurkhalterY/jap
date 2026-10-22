@@ -38,6 +38,7 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+#[\AllowDynamicProperties]
 /**
  * Router Class
  *
